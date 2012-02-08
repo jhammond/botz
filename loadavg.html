@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+          "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>botz loadavg</title>
+</head>
+<body>
+<pre id="loadavg"></pre>
+<script type="text/javascript">
+"use strict";
+(function() {
+  var req = new XMLHttpRequest();
+
+  req.open("GET", "http://localhost:9901/loadavg", true);
+
+  req.onreadystatechange = function () {
+    if (req.readyState == XMLHttpRequest.DONE && req.status == 200) {
+      var obj = JSON.parse(req.responseText);
+      var elt = document.getElementById("loadavg");
+      elt.innerHTML = JSON.stringify(obj, undefined, 2);
+    }
+  };
+
+  req.send(null);
+})();
+</script>
+</body>
+</html>
